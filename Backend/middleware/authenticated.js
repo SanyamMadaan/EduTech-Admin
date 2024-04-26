@@ -1,0 +1,21 @@
+const jwt=require('jsonwebtoken');
+const secreat=require('../config');
+
+const authenticated_Admin=(req,res,next)=>{
+    const token=req.headers.adminToken;
+    console.log(token);
+    if(!token || !token.startsWith('Bearer')){
+        return res.status(411).json({msg:"Invalid Token..accees denied"});
+    }
+    const received_token=token.split(' ')[1];
+    try{
+        jwt.verify(received_token,secreat);
+        console.log("middleware passed");
+        next();
+    }
+    catch(e){
+        return res.status(411).json({e});
+    }
+}
+
+module.exports=authenticated_Admin;

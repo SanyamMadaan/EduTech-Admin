@@ -1,0 +1,34 @@
+/*add admin page css*/
+
+.addadminpage,.addcoursepage{
+display:flex;
+align-items: center;
+flex-direction: column;
+}
+
+.addadminpage form,.addcoursepage form{
+    display:flex;
+    flex-direction:column;
+    border:2px solid black;
+    padding:20px;
+    width:200px;
+}
+
+.addcoursepage form{
+width:300px;
+}
+.addadminpage form input,.addcoursepage form input{
+    margin-bottom:20px;
+    width:200px;
+    height:30px;
+}
+
+.addadminpage form button,.addcoursepage form button{
+    width:180px;
+    height:35px;
+    background-color:black;
+    color:white;
+    padding:10px;
+    text-align: center;
+    cursor:pointer;
+}
