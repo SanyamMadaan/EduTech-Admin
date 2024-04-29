@@ -4,44 +4,12 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const secret = require('./config');
 const authenticated_Admin = require('./middleware/authenticated');
-
 const app = express();
 const PORT = 3002;
 
 app.use(cors());
 app.use(express.json());
 
-// const fs = require('fs');
-// const path = require('path');
-
-//...
-
-app.post('/addcourse', async (req, res) => {
-    const coursename=req.body.coursename;
-    const description=req.body.description;
-    const price=req.body.price;
-    // const image=req.body.image;
-
-    // Save the image file to the server
-    // const imageFilePath = path.join(__dirname, 'uploads', image.filename);
-    // const imageFileData = Buffer.from(image.base64Data, 'base64');
-    // fs.writeFileSync(imageFilePath, imageFileData);
-
-    // Create a new Course document
-    try {
-        const response=await Course.create({
-            coursename,
-            description,
-            price,
-            // image: image.filename // Store filename in the Course collection
-        });
-        console.log(response);
-        res.status(200).json({ msg: "Course created successfully" });
-    } catch (error) {
-        console.error("Error adding course:", error);
-        res.status(500).json({ msg: "Error while creating course" });
-    }
-});
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -61,6 +29,7 @@ app.post('/login', async (req, res) => {
         return res.status(411).msg({ msg: "Error while searching Admin" + e });
     }
 });
+
 app.get('/allcourses', async (req, res) => {
     try {
         const courses = await Course.find({});
@@ -96,14 +65,13 @@ app.delete('/delete/:courseID',async (req,res)=>{
 })
 
 app.put('/update/:courseId',async (req,res)=>{
-    const {coursename,description,price,image}=req.body;
+    const {coursename,description,price}=req.body;
     const courseId=req.params.courseId;
     try{
         const Updatecourse=await Course.findByIdAndUpdate(courseId,{
             coursename,
             description,
-            price,
-            image
+            price
         },{new:true});
 
         console.log(Updatecourse);
@@ -120,8 +88,27 @@ app.put('/update/:courseId',async (req,res)=>{
     }
 })
 
-
-
+  
+app.post('/addcourse', async (req, res) => {
+    const image=req.body.image;
+    const coursename=req.body.coursename;
+    const description=req.body.description;
+    const price=req.body.price;
+    try {
+        const response=await Course.create({
+            coursename,
+            description,
+            price,
+            image
+        });
+        response.save();
+        console.log(response);
+        res.status(200).json({ msg: "Course created successfully" });
+    } catch (error) {
+        console.error("Error adding course:", error);
+        res.status(500).json({ msg: "Error while creating course" });
+    }
+});
 
 app.listen(PORT, () => {
     console.log("App is listening on port ", PORT);
