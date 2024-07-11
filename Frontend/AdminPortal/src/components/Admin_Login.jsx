@@ -43,7 +43,7 @@ return(
      <div className='h-screen bg-black p-2'>
      <h2 className='text-center text-white font-bold text-4xl mt-1'>Login as Admin</h2>
      <div className='mt-20 flex justify-center'>
-     <form className='p-5 w-1/2 lg:pb-10 pt-5  flex justify-center flex-col items-center border-2 border-x-white lg:w-1/3'  autoFocus onSubmit={handleLogin}>
+     <form className='rounded-lg p-5 lg:w-1/4 lg:pb-10 pt-5  flex justify-center flex-col items-center border-2 border-x-white'  autoFocus onSubmit={handleLogin}>
         <input className='m-5 p-2 rounded-md w-4/5' type="Email" placeholder="Email" onChange={(e)=>{
             setEmail(e.target.value);
         }} autoFocus autofill="false" required/>
