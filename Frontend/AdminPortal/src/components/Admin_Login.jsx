@@ -1,13 +1,20 @@
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 export function Admin_login(){
-    const navigate=useNavigate();
+     
 
+    const navigate=useNavigate();
+    const[info,setInfo]=useState(false);
     const[email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const[button,setButton]=useState("Login");
+
+        if(!info){
+            alert('For exploring our website use sanyam@gmail.com as email address(lower case) and password as 12345');
+            setInfo(true)
+        }
 
     async function handleLogin(e){
         e.preventDefault();
