@@ -31,10 +31,8 @@ app.get('/course/:courseId', async (req, res) => {
     try {
         const courseId=req.params.courseId;
         const courses = await Course.findById(courseId);
-        if (courses.length >= 1) {
+        if (courses) {
             return res.status(200).json(courses);
-        } else {
-            return res.status(200).json({ msg: "founded" });
         }
     } catch (error) {
         console.error(error);
