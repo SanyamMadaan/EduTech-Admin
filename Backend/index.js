@@ -27,6 +27,21 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.get('/course/:courseId', async (req, res) => {
+    try {
+        const courseId=req.params.courseId;
+        const courses = await Course.findById(courseId);
+        if (courses.length >= 1) {
+            return res.status(200).json(courses);
+        } else {
+            return res.status(200).json({ msg: "founded" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error fetching courses" });
+    }
+});
+
 app.get('/allcourses', async (req, res) => {
     try {
         const courses = await Course.find({});
