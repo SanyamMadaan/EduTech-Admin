@@ -16,7 +16,11 @@ export function Card(props) {
             return;
         }
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${courseId}`);
+            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${courseId}`,{
+                headers:{
+                    admintoken:localStorage.getItem('adminToken')
+                }
+            });
             if (response.status === 200) {
                 alert('Course deleted successfully');
                 fetchCourses();
@@ -41,6 +45,10 @@ export function Card(props) {
                 description,
                 price,
                 image
+            },{
+                headers:{
+                    admintoken:localStorage.getItem('adminToken')
+                }
             });
             if (response.status === 200) {
                 alert('Course Updated Successfully');

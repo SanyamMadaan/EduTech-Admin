@@ -28,12 +28,15 @@ export function AddCourse() {
   }
 
   const saveCourse = async (e) => {
+    setButton("Adding...");
     e.preventDefault();
     const ImageUrl = await UploadFile(); // Get Cloudinary image link
     console.log(ImageUrl);
+    console.log('token aata hoga');
     const token = localStorage.getItem("adminToken");
+    console.log(token);
     try {
-      setButton("Adding...");
+      console.log('inside try');
       const res=await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/addcourse`,
         {
@@ -44,7 +47,7 @@ export function AddCourse() {
         },
         {
           headers: {
-            token: token,
+            admintoken: token,
           },
         }
       );
