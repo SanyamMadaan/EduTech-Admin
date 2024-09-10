@@ -22,6 +22,16 @@ export function Content() {
         fetchVideos();
     }, [courseId]);
 
+    async function DeleteLecture(vid){
+        let surity=confirm('Are You sure to delete this lecture from Database?');
+        if(!surity) return;
+        const res=await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/course/${courseId}/videos/${vid}`,{
+            headers:{
+                admintoken:localStorage.getItem('adminToken')
+            }
+        });
+        setLectures(lectures.filter(lec=>lec._id!==vid));
+    }
     
     return (
         <>
@@ -32,8 +42,15 @@ export function Content() {
             <div>
                 {lectures.length > 0 ?  lectures.map((vid, index) => (
                     <div key={vid._id} className="m-2 p-2 border-1 border-gray-300">
-                        <h2 className="mb-2 text-2xl uppercase underline font-bold">{vid.title}</h2>
-                        <video src={vid.videoUrl} controls muted className="lg:w-3/4 " />
+                        <div className="flex mb-2 justify-between ">
+                        <h1 className="mb-2 text-3xl uppercase underline  font-bold">{vid.title}</h1>
+                            <button className=" border-2-black bg-red-800 text-white p-2 rounded-md cursor-pointer" onClick={()=>DeleteLecture(vid._id)}>Delete</button>
+                        </div>
+                        
+                        <div className="w-full m-2 h-1/5">
+                        <video   src={vid.videoUrl} controls muted  />
+                        </div>
+                        
                     </div>
                 )) : <h1 className="text-red-800 text-2xl">No Content Added Yet</h1>}
             </div>

@@ -4,7 +4,7 @@ dotenv.config();
 const secreat=process.env.secreat;
 
 const authenticated_Admin=(req,res,next)=>{
-    const token=req.headers.adminToken;
+    const token=req.headers.admintoken;
     console.log(token);
     if(!token || !token.startsWith('Bearer')){
         return res.status(411).json({msg:"Invalid Token..accees denied"});
