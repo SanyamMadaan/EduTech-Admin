@@ -42,7 +42,7 @@ export function UploadLecture() {
     try {
       setButton("Uploading...");
       console.log('sending video is'+video);
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/addvideo`, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/course/addvideo`, {
         courseId,
         title: thumbnail,
         videoUrl: video,

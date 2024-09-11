@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log(process.env.DATABASE_URL); // Debugging line
 const URL = process.env.DATABASE_URL;
 const mongoose = require('mongoose');
 
@@ -32,6 +31,17 @@ const VideoSchema = mongoose.Schema({
     videoUrl: String,
 });
 
+const userSchema=mongoose.Schema({ 
+    email:String,
+    contact:String,
+    password:String,
+    courses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+    }],
+})
+
+const User=mongoose.model('User',userSchema);
 const Admin = mongoose.model("Admin", AdminSchema);
 const Course = mongoose.model("Course", CourseSchema);
 const Video = mongoose.model("Video", VideoSchema);
@@ -39,5 +49,6 @@ const Video = mongoose.model("Video", VideoSchema);
 module.exports = {
     Admin,
     Course,
-    Video
+    Video,
+    User
 };

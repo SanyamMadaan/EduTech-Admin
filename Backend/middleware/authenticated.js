@@ -1,7 +1,7 @@
 const jwt=require('jsonwebtoken');
 const dotenv=require('dotenv');
 dotenv.config();
-const secreat=process.env.secreat;
+const secret=process.env.secret;
 
 const authenticated_Admin=(req,res,next)=>{
     const token=req.headers.admintoken;
@@ -11,7 +11,7 @@ const authenticated_Admin=(req,res,next)=>{
     }
     const received_token=token.split(' ')[1];
     try{
-        jwt.verify(received_token,secreat);
+        jwt.verify(received_token,secret);
         console.log("middleware passed");
         next();
     }

@@ -38,7 +38,7 @@ export function AddCourse() {
     try {
       console.log('inside try');
       const res=await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/addcourse`,
+        `${import.meta.env.VITE_BACKEND_URL}/course/addcourse`,
         {
           coursename: course,
           description: desc,

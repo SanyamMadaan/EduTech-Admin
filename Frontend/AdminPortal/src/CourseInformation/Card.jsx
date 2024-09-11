@@ -6,7 +6,7 @@ export function Card(props) {
     const navigate = useNavigate();
 
     async function fetchCourses() {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/allcourses`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/allcourses`);
         props.setCourses(response.data);
     }
 
@@ -16,7 +16,7 @@ export function Card(props) {
             return;
         }
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${courseId}`,{
+            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/course/delete/${courseId}`,{
                 headers:{
                     admintoken:localStorage.getItem('adminToken')
                 }
@@ -40,7 +40,7 @@ export function Card(props) {
         const price = prompt("Enter Updated Course price", courseDetails.price);
         const image = prompt("Enter Updated Course image", courseDetails.image);
         try {
-            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/update/${courseId}`, {
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/course/update/${courseId}`, {
                 coursename,
                 description,
                 price,

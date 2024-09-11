@@ -12,7 +12,7 @@ export function CourseInfo(){
     useEffect(()=>{
         async function getCourses(){
             try{
-            const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/allcourses`);
+            const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/allcourses`);
             setCourses(response.data);
             console.log(courses);
             setLoading(false);

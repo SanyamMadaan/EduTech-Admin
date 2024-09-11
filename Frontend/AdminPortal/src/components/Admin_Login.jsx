@@ -21,7 +21,7 @@ export function Admin_login(){
         let response;
         try{
             setButton("Logging in...");
-        response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`,{
+        response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/login`,{
             email,
             password
         })
