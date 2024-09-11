@@ -9,13 +9,8 @@ const PORT = process.env.PORT;
 const bodyParser=require('body-parser');
 const app = express();
 
-const corsOptions = {
-    origin: 'https://edu-tech-client-murex.vercel.app', // Replace with your frontend domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true // Allow credentials if needed (e.g., cookies)
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }))
