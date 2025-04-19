@@ -1,52 +1,70 @@
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import { Card } from './Card';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Card } from "./Card";
+import { useState, useEffect } from "react";
 
-export function CourseInfo(){ 
-    
-    const[courses,setCourses]=useState([]);
-    const[loading,setLoading]=useState(true);
+export function CourseInfo() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        async function getCourses(){
-            try{
-            const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/allcourses`);
-            setCourses(response.data);
-            console.log(courses);
-            setLoading(false);
-            }catch(e){
-                console.log("Error while fetching courses");
-                setLoading(false);
-            }
-            }
-            getCourses();
-    },[]);
+  const navigate = useNavigate();
 
-    const navigate=useNavigate();
-    return(
-        <>
-        {loading?(
-            <h1>Loading....</h1>
-        ):(
-            <>
-        {(courses.length>=1)?(
-        <div className='bg-black h-fit lg:h-screen'>
-        <h1 className="text-white mb-10 p-5 text-4xl text-center">PUBLISHED COURSES</h1>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 my-2 mx-4 '>
-        {courses.map(course =>
-                <Card course={course} courses={courses} setCourses={setCourses}></Card>    
-        )}
-        </div>
-        </div>
-        ):(
-            <h1 className='text-red-800'>No active courses</h1>
-        )
-        }
-        </>
-        )
+  useEffect(() => {
+    async function getCourses() {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/course/allcourses`
+        );
+        setCourses(response.data);
+        setLoading(false);
+      } catch (e) {
+        console.log("Error while fetching courses");
+        setLoading(false);
+      }
     }
+    getCourses();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-100 px-4 py-6">
+      {loading ? (
+        <div className="text-center text-lg font-semibold text-gray-600">
+          Loading...
+        </div>
+      ) : (
+        <>
+          {courses.length >= 1 ? (
+            <>
+              <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-gray-800">
+                  Published Courses
+                </h1>
+                <button
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200"
+                  onClick={() => navigate("/addnewcourse")}
+                >
+                  + Add Course
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {courses.map((course) => (
+                  <Card
+                    key={course._id}
+                    course={course}
+                    courses={courses}
+                    setCourses={setCourses}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center text-red-600 font-semibold text-xl">
+              No active courses
+            </div>
+          )}
         </>
-    )
+      )}
+    </div>
+  );
 }

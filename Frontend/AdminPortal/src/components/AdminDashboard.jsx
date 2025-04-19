@@ -1,10 +1,10 @@
 import axios from 'axios';
-import {Navbar} from './Navabar';
+import { CourseInfo } from '../CourseInformation/CoursesInfo';
 
 export function AdminDashboard(){
     return(
         <div>
-            <Navbar page={"DASHBOARD"}/>
+            <CourseInfo></CourseInfo>
         </div>
     )
 }
